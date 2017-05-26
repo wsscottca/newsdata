@@ -6,7 +6,8 @@ To run the program enter directory and enter
 Source - newsdata.py
 Output - output.txt
 
-Methods: 
+Methods:
+
 	main() - runs the program
 
 	iterate_dict(d, end) - present the result of the

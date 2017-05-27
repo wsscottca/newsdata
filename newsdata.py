@@ -12,13 +12,13 @@ def main():
     get_article_views(c, " LIMIT 3")
     print("Authors by view count:\n")
     get_author_views(c)
-    print("Dates with error percent over 1%:")
+    print("Dates with error percent over 1%:\n")
     get_error_perc(c)
 
     conn.close()
 
 
-def iterate_dict(d, end=None):
+def iterate_dict(d):
     """ Present the result of the SQL result dictionary neatly
 
     Keyword arguments:
@@ -26,9 +26,12 @@ def iterate_dict(d, end=None):
     end -- index of end of key
     """
     for key, value in d:
-        print("\"" + str(key)[0:end] + "\" - " + str(value))
+        if (type(value) is float):
+            value = value * 100
+            print(" " + str(key) + " - " + str("%.2f" % value) + "%")
+        else:
+            print(" \"" + str(key) + "\" - " + str(value))
     print("\n")
-
 
 
 def get_article_views(c, limit=""):
@@ -66,7 +69,8 @@ def get_error_perc(c):
     Keyword argument:
     c -- psycopg2 connection cursor
     """
-    c.execute("SELECT date, err/total AS ratio" +
+    c.execute("SELECT to_char(date, 'FMMonth FMDD, YYYY')," +
+              " err/total AS ratio" +
               " FROM (SELECT time::date as date," +
               " COUNT(*) AS total," +
               " SUM((status != '200 OK')::int)::float AS err" +
@@ -74,9 +78,7 @@ def get_error_perc(c):
               " GROUP BY date) AS errors" +
               " WHERE err/total > 0.01;")
     if(c.rowcount != 0):
-        for (date, ratio) in c.fetchall():
-            pct = ratio * 100
-            print("{} - {:.2f}% errors".format(date, pct))
+        iterate_dict(c.fetchall())
     else:
         print("No results found.")
 

@@ -1,21 +1,19 @@
 Output:
 
-Database cleaned.
-
 Top 3 viewed articles:
 
-"Candidate is jerk, alleges rival" - 338647
-"Bears love berries, alleges bear" - 253801
-"Bad things gone, say good people" - 170098
+ "Candidate is jerk, alleges rival" - 338647
+ "Bears love berries, alleges bear" - 253801
+ "Bad things gone, say good people" - 170098
 
 
 Authors by view count:
 
-
-"Ursula La Multa" - 507594
-"Rudolf von Treppenwitz" - 423457
-"Anonymous Contributor" - 170098
-"Markoff Chaney" - 84557
+ "Ursula La Multa" - 507594
+ "Rudolf von Treppenwitz" - 423457
+ "Anonymous Contributor" - 170098
+ "Markoff Chaney" - 84557
 
 Dates with error percent over 1%:
-2016-07-17 - 2.26% errors
+
+ July 17, 2016 - 2.26% errors

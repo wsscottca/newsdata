@@ -1,12 +1,23 @@
 Selects top 3 articles, orders authors by view,
  and finds dates with >1% failed requests
+
+Install vagrant with database:
+https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59125904_fsnd-virtual-machine/fsnd-virtual-machine.zip
+
+Get newsdata.sql:
+https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip
+
+To create the database enter directory and enter 
+ the following command: 'psql -d news -f newsdata.sql'
+
 To run the program enter directory and enter 
  the following command:'python newsdata.py'
 
+Database - newsdata.sql
 Source - newsdata.py
 Output - output.txt
 
-Methods:
+Methods: 
 
 	main() - runs the program
 

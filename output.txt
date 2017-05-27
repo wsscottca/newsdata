@@ -11,10 +11,11 @@ Top 3 viewed articles:
 
 Authors by view count:
 
-"Anonymous Contributor" - 1676856
-"Markoff Chaney" - 1676856
-"Ursula La Multa" - 6707424
-"Rudolf von Treppenwitz" - 3353712
+
+"Ursula La Multa" - 507594
+"Rudolf von Treppenwitz" - 423457
+"Anonymous Contributor" - 170098
+"Markoff Chaney" - 84557
 
 Dates with error percent over 1%:
 No results found.

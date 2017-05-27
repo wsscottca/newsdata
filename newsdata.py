@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 import psycopg2
 
 
@@ -63,35 +64,32 @@ def get_author_views(c):
     Keyword argument:
     c -- psycopg2 connection cursor
     """
-    c.execute("SELECT name, COUNT(*) AS views" +
-              " FROM articles, authors, log" +
-              " WHERE articles.author = authors.id" +
-              " GROUP BY name")
+    c.execute("SELECT name, COUNT(*) as views" +
+              " FROM authors, articles, log" +
+              " WHERE authors.id = articles.author" +
+              " AND path = CONCAT('/article/', slug)" +
+              " GROUP BY name" +
+              " ORDER BY views desc;")
     iterate_dict(c.fetchall())
 
 
 def get_error_perc(c):
-    """ Get days with an error percent of over 2.5%
+    """ Get days with an error percent of over 1%
 
     Keyword argument:
     c -- psycopg2 connection cursor
     """
-    c.execute("SELECT views.day, views.cnt FROM" +
-              " (SELECT datelog.day," +
-              "  (" +
-              "   CAST(COUNT(CASE WHEN datelog.status != '200 OK'" +
-              "    THEN 1 ELSE null END) AS float)" +
-              "   /" +
-              "   CAST(COUNT(*) AS float)" +
-              "   ) AS cnt" +
-              "   FROM (SELECT DATE(time) AS day," +
-              "    status FROM log) AS datelog" +
-              "   GROUP BY datelog.day" +
-              "  ) AS views" +
-              " WHERE views.cnt > 0.025")
+    c.execute("SELECT date, err/total AS ratio" +
+              " FROM (SELECT time::date as date," +
+              " COUNT(*) AS total," +
+              " SUM((status != '200 OK')::int)::float AS err" +
+              " FROM log" +
+              " GROUP BY date) AS errors" +
+              " WHERE err/total > 0.01;")
     if(c.rowcount != 0):
         iterate_dict(c.fetchall(), end=10)
-    print("No results found.")
+    else:
+        print("No results found.")
 
 
 main()

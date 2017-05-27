@@ -8,8 +8,6 @@ def main():
     conn = psycopg2.connect(dbname="news")
     c = conn.cursor()
 
-    delete_spam(c)
-    print("\nDatabase cleaned.\n\n")
     print("Top 3 viewed articles:\n")
     get_article_views(c, " LIMIT 3")
     print("Authors by view count:\n")
@@ -31,17 +29,6 @@ def iterate_dict(d, end=None):
         print("\"" + str(key)[0:end] + "\" - " + str(value))
     print("\n")
 
-
-def delete_spam(c):
-    """ Cleans the database of any spam
-
-    Keyword argument:
-    c -- psycopg2 connection cursor
-    """
-    c.execute("UPDATE log SET path = 'spam'" +
-              "WHERE path = '/+++ATH0' OR path = '/%20%20%20'" +
-              "OR path = '/spam-spam-spam-humbug';")
-    c.execute("DELETE from log WHERE path = 'spam';")
 
 
 def get_article_views(c, limit=""):
@@ -87,7 +74,9 @@ def get_error_perc(c):
               " GROUP BY date) AS errors" +
               " WHERE err/total > 0.01;")
     if(c.rowcount != 0):
-        iterate_dict(c.fetchall(), end=10)
+        for (date, ratio) in c.fetchall():
+            pct = ratio * 100
+            print("{} - {:.2f}% errors".format(date, pct))
     else:
         print("No results found.")
 

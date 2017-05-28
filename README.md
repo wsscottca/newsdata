@@ -24,8 +24,6 @@ Methods:
 	iterate_dict(d, end) - present the result of the
 		 SQL result dictionary neatly
 
-		@arg c psycopg2 connection cursor
-
 	get_article_views(c) - gets the top 3 most view articles
 		@arg c psycopg2 connection cursor
 

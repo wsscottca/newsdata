@@ -26,9 +26,6 @@ Methods:
 
 		@arg c psycopg2 connection cursor
 
-	delete_spam(c) - cleans the database of existing spam
-		@arg c psycopg2 connection cursor
-
 	get_article_views(c) - gets the top 3 most view articles
 		@arg c psycopg2 connection cursor
 
